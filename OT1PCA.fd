@@ -1,0 +1,40 @@
+
+\ProvidesFile{ot1pca.fd}
+   [1997/01/26  OT1/pca (Caslon Roman) with Adobe file names. (DPC)]
+
+\DeclareFontFamily{OT1}{pca}{}
+
+\DeclareFontShape{OT1}{pca}{m}{n}{<-> awrg}{}
+\DeclareFontShape{OT1}{pca}{m}{it}{<-> awi}{}
+
+\DeclareFontShape{OT1}{pca}{sb}{n}{<-> awsb}{}
+\DeclareFontShape{OT1}{pca}{sb}{it}{<-> awsbi}{}
+
+\DeclareFontShape{OT1}{pca}{b}{n}{<-> awb}{}
+\DeclareFontShape{OT1}{pca}{b}{it}{<-> awbi}{}
+
+% You can use real obliqued Caslon fonts
+
+\DeclareFontShape{OT1}{pca}{m}{sl}{<-> awi}{}
+\DeclareFontShape{OT1}{pca}{b}{sl}{<-> awbi}{}
+
+% There are real Caslon Smallcaps and OldStyleFigures from Adobe
+
+%\DeclareFontShape{OT1}{pca}{m}{sc}{<-> awrgsc}{}
+%\DeclareFontShape{OT1}{pca}{b}{sc}{<-> tibsc}{}
+
+% We silently treat bold extended as bold
+
+\DeclareFontShape{OT1}{pca}{bx}{n}{<->ssub * pca/b/n}{}
+\DeclareFontShape{OT1}{pca}{bx}{sl}{<->ssub * pca/b/sl}{}
+\DeclareFontShape{OT1}{pca}{bx}{it}{<->ssub * pca/b/it}{}
+\DeclareFontShape{OT1}{pca}{bx}{sc}{<->ssub * pca/b/sc}{}
+
+% We treat lite as medium
+
+\DeclareFontShape{OT1}{pca}{l}{n}{<-> sub * pca/m/n}{}
+\DeclareFontShape{OT1}{pca}{l}{sl}{<-> sub * pca/m/sl}{}
+\DeclareFontShape{OT1}{pca}{l}{it}{<-> sub * pca/m/it}{}
+\DeclareFontShape{OT1}{pca}{l}{sc}{<-> sub * pca/m/sc}{}
+
+\endinput

@@ -1,0 +1,83 @@
+
+% abbreviate Sample FrontMatter
+
+% we can take care of the frontmatter for you 
+
+% we will need an Abstract and Keywords - please see a sample below
+
+\def\TITLE{Sample Title}
+\def\AUTHOR{Your Name}
+\def\AFFILIATION{Your Affiliation}
+\def\LECTURE{\ \#1}
+\def\lcSYNTHESIS{Synthesis Lectures on SAMPLE SERIES}
+\def\SYNTHESIS{\uppercase{Synthesis Lectures on SAMPLE SERIES}}
+
+%%%%%%%%%%%% FULL TITLE 5
+
+\thispagestyle{emptyrule}
+\title{\TITLE}
+
+\vspace*{2pc}
+\authorname{\AUTHOR}
+\authoraffiliation{\AFFILIATION}
+
+\vfill
+\synthesis{\SYNTHESIS\LECTURE}
+\morganlogo
+\clearpage
+
+
+%%%%%%%%%%%% ABSTRACT AND KEY TERMS ( \keywords{ ... } ) 6
+
+\thispagestyle{emptyrule}
+
+\ABSTRACT
+\noindent
+SAMPLE ABSTRACT
+
+\noindent
+In quantum computing, where algorithms
+exist that can solve computational problems
+more efficiently than any known classical
+algorithms, the elimination of errors
+that result from external disturbances
+or from imperfect gates has become the
+``holy grail,'' and a worldwide quest for
+a large scale fault-tolerant and computationally
+superior quantum computer is currently
+taking place. Optimists rely on the premise
+that, under a certain threshold of errors,
+an arbitrary long fault-tolerant quantum
+computation can be achieved with only
+moderate (i.e., at most polynomial) overhead in computational cost.
+Pessimists, on the other hand, object
+that there are in principle (as opposed
+to merely technological) reasons why such
+machines are still inexistent, and that
+no matter what gadgets are used, large
+scale quantum computers will never be
+computationally superior to classical
+ones. Lacking a complete empirical characterization
+of quantum noise, the debate on the physical
+possibility of such machines invites philosophical
+scrutiny. Making this debate more precise
+by suggesting a novel statistical mechanical
+perspective thereof is the goal of this project.
+%end ABSTRACT
+
+\keywords{%
+SAMPLE KEYWORDS\\
+computational complexity, decoherence,
+error-correction, fault-tolerance, Landauer's
+Principle, Maxwell's Demon, quantum computing,
+statistical mechanics, thermodynamics
+}
+
+\vfill
+\pagebreak
+
+\tableofcontents
+
+% a Dedication, Preface, and Acknowledgments
+% are optional, by a Preface is desirable to have
+

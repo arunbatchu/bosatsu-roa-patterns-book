@@ -1,0 +1,264 @@
+
+% ttdefs.sty    01/14/10          % T&T TechWorks Macros
+                                  % K&D refers to Kopka & Daly, 4th ed, 2003
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ttdefs}[2010/01/14 T&T TechWorks Macros]
+
+\newif\ifFinalPages
+\DeclareOption{draft}{\FinalPagesfalse}
+\DeclareOption{finals}{\FinalPagestrue}
+\ProcessOptions
+
+
+\usepackage{latexsym}               % underlined symbols in K&D, p127
+\usepackage[psamsfonts]{amsfonts}   % AMS fonts for \mathfrak in subscripts
+\usepackage{amsmath}                % AMS-LaTeX in K&D, p269-270
+\usepackage{amssymb}                % AMS symbols in K&D, p295, 551-553
+\usepackage{amsbsy}                 % AMS-LaTeX in K&D, p270, for \boldsymbol
+\usepackage{amscd}                  % AMS-LaTeX in K&D, p293
+\usepackage{bm}                     % provide access to bold math symbols
+\usepackage{longtable}              % long tables as in Abrahams's book
+\usepackage{cases}                  % handle numcases (see jfaa v11i4/4082.tex)
+\usepackage{url}                    % url macros
+\usepackage{comment}                % allow for \begin{comment}...\end{comment}
+\usepackage{euscript}               %
+\usepackage{multirow}               % see v13i5/6903.tex
+\usepackage{rotating}               % rotating package in K&R, p159
+\usepackage{graphicx}               % for .eps figures
+\usepackage{subfigure}              % for subfigures (figs within figs)
+
+\font\AMSFont=msam10 at 10pt        % special AMS font characters
+\def\one{\mbox{\AMSFont\char"5D}}   % at the top of article that needs it
+\font\BMSFont=msbm10 at 10pt        % special BMS font characters
+\font\FRAKFont=eufm10 at 10pt       % special Fraktur font characters
+\font\FRAKFontmed=eufm10 at 9pt     % special Fraktur font characters
+\font\MATHCalFont=cmsy10            % math cal font for \mathcall (below)
+\font\MATHFrakFont=eufm10           % math cal font for \mathcall (below)
+\font\smallfraktur=eufm7            % sub/super small fraktur font
+\font\MATHScrFont=cmr10             % for \mathscr
+\font\MATHScrFontsm=cmr8            % for \mathscrsm
+\font\MATHSfFont=cmss10             % for mathsf font at 10 pt
+\font\MATHSfFontsm=cmss10 at 7.5pt  % for mathsf font at 7.5 pt
+
+									% blank line, if not at top of page
+\newcommand{\blankline}{\vspace{.25cm}}
+
+\newcommand\bull{$\bullet$}			% \bull for a bullet in tables
+
+\newcommand\ds{\displaystyle}		% mostly for \fracs
+
+\newcommand\nl{\newline}
+                                    % use \let\mathcal\mathcall
+\def\mathcall#1{\hbox{\MATHCalFont#1}}  % local \mathcall supersedes \mathcal
+                                    % local \mathfrak supersedes \mathfrakk
+\def\mathfrakk#1{\hbox{\MATHFrakFont#1}}% to avoid 'too many alphabets'
+
+                                    % \mathscr using cmr10 (10 pt)
+\def\mathscr#1{\hbox{\MATHScrFont#1}}
+                                    % \mathscrsm using cmr8 (8 pt)
+\def\mathscrsm#1{\hbox{\MATHScrFontsm#1}}
+
+                                    % our own \mathsf using cmss10
+\def\mathsf#1{\hbox{\MATHSfFont#1}}
+
+                                    % our own \mathsf using cmss10 at 7.5pt
+\def\mathsfsm#1{\hbox{\MATHSfFontsm#1}}
+
+                                    % \medmathfrak{H} for H frak at 9
+\def\medmathfrak #1{\hbox{\FRAKFontmed #1}}
+
+                                    % \submathfrak{H} for H frak sub/super
+\def\submathfrak #1{\hbox{\smallfraktur #1}}
+
+                                    % ||| (bar bar bar) character
+\newcommand*{\bbb}{\mbox{\ensuremath{|\mspace{-2mu}|\mspace{-2mu}|}}}
+\newcommand*{\bigbbb}{\mbox{\ensuremath{\big|\mspace{-2.5mu}\big|%
+                        \mspace{-2.5mu}\big|}}}
+\newcommand*{\itemseparator}{\\[.5ex]}  % item separator in private lists
+
+                                    % operatorname from AMS TeX
+%\newcommand*{\operatorname}[1]{\mathop{\mathrm{#1}}}
+
+% use \newcommand* and \renewcommand* versions in K&D, p435, 516, 527
+                                    % small half pi
+\newcommand*{\halfpi}{\frac{\pi}{2}}
+                                    % small 1/2
+\newcommand*{\onehalf}{{\textstyle\frac{1}{2}}}
+                                    % small 1/4
+\newcommand*{\onequarter}{{\textstyle\frac{1}{4}}}
+                                    % \rbox{.1in}{text}  to raise 'text' .1in
+                                    % \rbox{-.1in}{text} to lower 'text' .1in
+                                    % K&D, p87, 113
+\newcommand*{\rbox}[2]{\raisebox{#1}[0pt]{#2}}
+                                    % \rmoper{dist}, e.g.
+\newcommand*{\rmoper}[1]{\operatorname{#1}}
+                                    % \lim with overline
+\newcommand*{\overlim}{\operatorname{\overline{\lim}}\limits}
+                                    % \lim with underline
+\newcommand*{\underlim}{\operatorname{\underline{\lim}}\limits}
+                                    % operator with overline
+\newcommand*{\overop}[1]{\operatorname{\overline{#1}}\limits}
+                                    % operator with underline
+\newcommand*{\underop}[1]{\operatorname{\underline{#1}}\limits}
+                                    % minus (n-dash) with an \int
+\newcommand*{\mint}{\mbox{--}\hspace*{-8.8pt}\int}
+                                    % \int with a forward slash across it
+\newcommand{\sint}{\int_I\hspace{-11pt}\diagup\,}
+                                    % use abbreviation for \displaystyle
+\newcommand*{\D}{\displaystyle} % K&D, p143, 147
+                                    % \atop{top stuff}{bottom stuff}
+                                    % do not use {top \atop bottom} K&D, p138
+\renewcommand*{\atop}[2]{\genfrac{}{}{0pt}{}{#1}{#2}}      % K&D, p276, 500
+                                    % \choose{top stuff}{bottom stuff}
+                                    % do not use {top \choose bottom} K&D, p138
+\renewcommand*{\choose}[2]{\genfrac{(}{)}{0pt}{}{#1}{#2}}  % K&D, p276, 500
+
+\font\MATHSfFont=cmss10             % for mathsf font at 10 pt
+\font\msbm=msbm10                   % blackboard font characters:
+\def\RR#1{\hbox{\msbm{#1}}}         % regular text
+
+\font\msbms=msbm10 at 7.6pt
+\def\rr#1{\hbox{\msbms{#1}}}        % subscript/superscript
+
+\font\msbmrrr=msbm10 at 20pt
+\def\RRCHAP#1{\hbox{\msbmrrr{#1}}}  % chapter (article) title
+
+\font\msbmrrsec=msbm10 at 14pt
+\def\RRSEC#1{\hbox{\msbmrrsec{#1}}} % section (article) title
+
+\font\msbmrrsubsec=msbm10 at 12pt   % subsection (article) title
+\def\RRSUBSEC#1{\hbox{\msbmrrsubsec{#1}}}
+
+\newcommand*{\stacklow}[2]%         % second parameter appears below
+        {\mathrel{\mathop{#1}\limits_{#2}}}
+
+                                    % allow for up/down vertical space
+                                    % \vs{11pt}{0pt}   height is      11pt
+                                    % \vs{0pt}{9pt}    depth is        9pt
+                                    % \vs{11pt}{9pt}   height + depth 20pt
+\newcommand*{\vs}[2]{\ensuremath{\vrule height #1 depth #2 width 0pt}}
+
+                                    % $\bmath{H}$ to make H in bold math
+                                    % $\bmath{\alpha}$ -> bold math \alpha
+\newcommand*{\bmath}[1]{\mbox{\boldmath$#1$}}   % K&D, p144
+
+% change values for floating figures space
+\setcounter{topnumber}{3}           % instead of 2
+\renewcommand*{\topfraction}{.85}   % instead of .7
+\setcounter{totalnumber}{4}         % instead of 3
+\renewcommand*{\textfraction}{.1}   % instead of .2
+
+% abox  #1 - x offset, #2 - y offset, #3 - width, #4 - height
+\def\abox#1#2#3#4{\vskip#2\vbox
+to0pt{\hskip#1\fbox{\rule{0pt}{#4}\rule{#3}{0pt}}}\vskip-#2}
+
+\setlength{\arraycolsep}{.07in}     % change col space in array environ.
+                                    % see Hahn p226 and p237
+
+% usage:
+% { \rommanenumerate \begin{enumerate} \item one \end{enumerate} }
+                                    % roman non-bold (i), (ii), etc
+\newenvironment{romanenumerate}{%   % to be used with enumerate in
+        \vspace{-.07in}             % Lemma, Theorems, etc
+        \renewcommand{\labelenumi}{\textmd{\textrm{(\roman{enumi})}}}
+        \renewcommand{\labelenumii}{\textmd{\textrm{(\alph{enumii})}}}
+        }
+
+% usage:
+% { \letterenumerate \begin{enumerate} \item one \end{enumerate} }
+                                    % roman non-bold (a), (b), etc
+\newenvironment{letterenumerate}{%  % to be used with enumerate in
+        \vspace{-.07in}             % Lemma, Theorems, etc
+        \renewcommand{\labelenumi}{\textmd{\textrm{(\alph{enumi})}}}
+        \renewcommand{\labelenumii}{\textmd{\textrm{(\roman{enumii})}}}
+        }
+
+% macros to improve M&C tables
+% usage:
+%		\vsap{\bull}{text to the right of bullet.}
+%		\vsap{1.}{First item}
+\newcommand\ragr[1]{{\def\endrow{\@arraycr}% to replace \\
+				     \raggedright#1}}
+%newcommand\hang{\hangindent=.3in}
+%def\textindent#1{\indent\llap{#1\enspace}\ignorespaces}
+\newcommand\vsap[2]{\ifthenelse{\equal{#1}{}}%
+						       {\ragr{\vs{13pt}{0pt}#2\nl}}%
+							   {\ragr{#1\hspace{.05in}\vs{13pt}{0pt}#2\nl}}%
+				   }
+
+
+\newcommand{\vsUP}{\vs{18pt}{0pt}}	% vertical space (UP)   in a table
+\newcommand{\vsDN}{\vs{0pt}{8pt}}	% vertical space (DOWN) in a table
+
+\newcommand\bul{{$\bullet\ $}}		% a bullet in a table
+
+\newcommand\seealso[1]{\textit{see also}(#1)}
+
+
+\ifFinalPages                       % finals (final pages - use figures)
+
+\usepackage[LY1]{fontenc}           % specify text font encoding Tex'n ANSI
+\usepackage[LY1,mtbold]{mathtime}   % switch math fonts
+
+\font\TRFont=tir at 10pt            % TimesRoms font characters
+\font\BodFont=bodb at 14pt          % special BMS font characters
+\font\MBBFont=bbold10 at 10pt       % all \mathbb characters at 10pt
+\font\CaslonSC=awsc at 11pt         % Caslon SC at 11pt
+
+\renewcommand{\textsc}[1]{{\CaslonSC #1}}
+
+\font\LSFFont=lsr at 9pt         	% lsr "sf" fonts at 9pt
+
+\renewcommand\textsf[1]{{\LSFFont #1}}% sf at 9pt for this book
+
+                                    % create a char using Black Board Font
+\newcommand\mathbbchar[1]{\mbox{\MBBFont\char`#1}}
+% e.g., \mathbbchar{1}, same as \MBBFont\char"31  (31 in hex is digit 1)
+
+\font\dagfnt=tir at 7.6pt           % reset \dag font for MathTime
+\def\dag{\mbox{\dagfnt\char"86}}    % reset \dag  for MathTime
+\def\ddag{\mbox{\dagfnt\char"87}}   % reset \ddag for MathTime
+                                    % superscript circled registered mark
+\def\registered{$\protect^{\mbox{\TRFont\char"AE}}$}
+
+                                    % draw a box for \figeps [draft] mode
+\newcommand*{\figeps}[3]{\centerline{\hbox{\framebox[#1][c]{\rule{0pc}{#2}%
+						 #3}\hfill}}}
+									% pdf file colors for xrefs
+\definecolor{MyLightBlue}{rgb}{0.6,0.8,1}
+\definecolor{MyDarkBlue}{cmyk}{1,0.50,0,0.10}
+\definecolor{MyDarkGrey}{rgb}{0.33,0.33,0.33}
+\definecolor{MyDarkGreen}{rgb}{0.0,0.67,0.40}
+
+\else                               % DRAFT (boxes instead of figures)
+
+\font\TRFont=cmr10 at 10pt          % ComputerModern font characters
+\font\BodFont=msbm10 at 14pt        % special BMS font characters
+\font\MBBFont=cmr10 at 10pt         % all \mathbb characters
+                                    % create a char using Black Board Font
+\newcommand\mathbbchar[1]{\mbox{\MBBFont\char`#1}}
+% e.g., \mathbbchar{1}, same as \MBBFont\char"31  (31 in hex is digit 1)
+
+                                    % superscript circled registered mark
+\def\registered{$\protect^{\mbox{\TRFont\char"AE}}$}
+
+                                    % draw a box for \figtif [draft] mode
+\newcommand*{\figtif}[3]{\centerline{\hbox{\framebox[#2][c]{\rule{0pc}{#3}%
+						 #1}\hfill}}}
+                                    % draw a box for \figeps [draft] mode
+\newcommand*{\figeps}[3]{\centerline{\hbox{\framebox[#1][c]{\rule{0pc}{#2}%
+						 #3}\hfill}}}
+\fi									% end of \ifFinalPages / \else
+
+
+                                    % draw a box when fig is not available
+\newcommand*{\figboxes}{\centerline{\hbox{\fbox{\rule{0pc}{7pc}\hspace*{19pc}}%
+                        \hfill}}}
+\newcommand*{\figboxesname}[1]{\centerline{\hbox{\fbox{\rule{0pc}{7pc}%
+						\hspace*{19pc}#1}\hfill}}}
+\newcommand*{\figsmallboxes}{\centerline{\hbox{\fbox{\rule{0pc}{3pc}%
+                        \hspace*{6pc}}\hfill}}}
+
+
+\endinput                           % end T&T TechWorks Macros
+

@@ -1,0 +1,75 @@
+\def \morgantarget {1.14}            %% without `v'
+\ProvidesPackage{morbeta}[2010/04/26 patch 10-3 for morgan.sty 
+                                          v\morgantarget\space (UL)]
+%%  == Tasks/Background == %%%%%%%%%%%%%%%%%%%
+%%
+%% `morbeta.sty' changes behavior of `morgan.sty' in order to 
+%% test requested features and to provide them quickly without 
+%% `morgan.sty' "bureaucrazy" (adapting documentation, bids ...)
+%%
+%% Main task of patch 10-2 is formatting the table of contents 
+%% and lists of figures or tables. %% 2010/04/25
+%%
+%%  == USAGE == %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 1. load 'morbeta.sty' after 'morgan.sty'          (make sure 
+%%      \morgantarget matches "visible" version of 'morgan.sty')
+%% 2. make 'ot1cmpca.fd' "visible" 
+%%      (install, instead of 'cmupdate.fd')
+%%
+%%  == Version Check == %%%%%%%%%%%%%%%%%%%%%%
+\ifx\morgantarget\morganversion \else
+  \PackageError{morbeta}
+               {wrong version of `morgan.sty'}
+               {Install `morgan.sty' v\morgantarget\MessageBreak
+                or don't load present version of `morbeta.sty'.}
+\fi
+%%
+%%  == Package Options == %%%%%%%%%%%%%%%%%%%%
+%% (None)
+% \ProcessOptions
+%%
+%% == Dirty Renormalizing of \cs{l@subsection} == 
+\renewcommand\l@subsection[2]{{%
+  \ifnum \c@tocdepth >1\vskip 1.5pt plus 1pt minus 0.5pt
+    \noindent\hskip59pt         %% 2010/04/25
+    \def\numberline##1##2{%
+      \hbox to \maxsectionwidth{##1\hfill}
+%% ... or &\maxsectionwidth
+      \hbox{\vtop{\hsize=25.6pc   %% 2010/04/25
+                  \raggedright ##2\vphantom{ty}\dotfill 
+                  #2\hskip-18pt\null}}}
+    #1\par
+    \smallskip
+  \fi}}
+%%
+%% == Quick dirty fix of \cs{l@figure} and \cs{l@table} ==
+\newcommand*\l@figtab[3]{{%
+  \noindent
+  \def\numberline##1##2{%
+    \noindent\hbox to \maxfigurewidth{\color{blue}#1 ##1\hfill}
+             \hbox{\vtop{\hsize=25pc\raggedright ##2}}}
+  #2\quad\hbox to 24pt{\hfil#3}}\par\smallskip}
+\renewcommand*\l@figure{\l@figtab{Figure}}
+\renewcommand*\l@table {\l@figtab{Table}}
+%%
+%% == Lists of \dots ==
+\renewcommand*\listoffigures{%
+%% dropping `restonecol'
+    \chapter*{\listfigurename}%   %% like book.cls 2010/04/26
+      \@mkboth{\listfigurename}%  %% uppercase from pagestyle
+              {\listfigurename}%
+    \addcontentsline{toc}{chapter}%% dropping `schapter'
+                    {\protect\numberline{}{List of Figures}}%
+    \@starttoc{lof}%
+}
+\renewcommand*\listoftables{%
+%% dropping `restonecol'
+    \chapter*{\listtablename}%   %% like book.cls 2010/04/26
+      \@mkboth{\listtablename}%  %% uppercase from pagestyle
+              {\listtablename}%
+    \addcontentsline{toc}{chapter}%% dropping `schapter'
+                    {\protect\numberline{}{List of Tables}}%
+    \@starttoc{lot}%
+}
+\endinput 
+

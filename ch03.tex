@@ -1,0 +1,69 @@
+
+\chapter{Citations with Author-Year}
+\label{chap:cit:A-Y}
+
+An alternative to numerical \LaTeX\ citations makes reference to published
+works by citing the author's name and year of publication. The entries in 
+the bibliographic listing are not numbered. The citation itself may be 
+either parenthetical like \citep{carroll98} or textual as shown by
+\citet{carroll98}.
+
+The \verb+natbib+ package by Patrick W. Daly is the most universal package
+for Author-Year citation and it is compatible with \verb+\bibitem+ syntaxes
+and with the \verb+.bst+ files of author-year packages such as
+\verb+apalike+, \verb+chicago+, and \verb+harvard+.
+
+If you create a bibliography by hand, please see the file \verb+biblio.tex+
+in the \verb+latex+ directory of \verb+bib-AY.zip+.
+The \verb+biblio.tex+ files shows the syntax that \verb+natbib.sty+ 
+requires and notice how we use
+that package in~\verb+book.tex+ and in~\verb+ch01.tex+. 
+You can find the details about \verb+natbib+ and Author-Year bibliographies
+in~\citet[pages~218-221]{KD:2004}.
+
+Note that we have bibliographic references like \verb+carroll98+,
+\verb+KD:2004+, and \verb+weber-97+. Pick a style that works for you
+and stay with it, then it will be easier for yourself and others to 
+maintain and modify your bibliography and citations.
+
+If you use \verb+.bib+ files then you should know about \verb+BibTeX+,
+\verb+.bst+ files, and you should know how to create the \verb+.bbl+
+files as well.
+(If you use \verb+.bib+ files but you do not know the rest, you should
+consult a local expert before continuing with \verb+.bib+ or create
+your bibliography by hand.)
+If you know the steps we mentioned above and you wish to create an 
+Author-Year bibliography and citations, then you are in luck: 
+there are three \verb+.bst+ that are provided with \verb+natbib+.
+They are: \verb+plainnat+, \verb+unsrtnat+, and \verb+abbrvnat+.
+
+Once you create your \verb+.bbl+ file(s), please submit them along with
+your manuscript files, style files, and (preferably) \verb+.eps+ figures with 
+\verb+BoundingBox+es to \textit{Morgan and Claypool Publishers.}
+
+You can get a free copy of the \verb+natbib+ package  from CTAN at
+\begin{center}
+\verb+http://www.ctan.org/tex-archive/macros/latex/contrib/natbib/+
+\end{center}
+and download the file \verb+natbib.zip+.
+
+Here are some more samples using the citations that appear in the file
+\verb+biblio.tex+ that we built by hand.
+
+The next paragraph uses text citations using \verb+\citet+ (cite as text):\\
+\noindent
+There are several textbooks that give a general 
+introduction to dependency grammar but
+most of them in other languages than English, for example,
+\citet{tarvainen82} and~\citet{weber-97}.
+
+The last paragraph uses text citations with parentheses
+using \verb+\citetp+:\\
+\noindent
+Tesni{\`e}re's seminal work was published
+posthumously as~\citep{tesniere59}. 
+Other influential theories in the dependency
+grammar tradition include Functional Generative
+Description~\citep{SHP:1986}.
+
+Please see the bibliography on the next page and the file \verb+biblio.tex+.

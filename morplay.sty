@@ -1,0 +1,92 @@
+\ProvidesPackage{morplay}[2010/01/17 morgan.sty layout changes (UL)]
+%% Layout tests for `morgan.sty'
+
+%% Option for ragged section titles 2010/01/17:
+\newcommand*{\MC@alignsec}{\relax} %% so \renewcommand works
+\DeclareOption{raggedsec}{%
+  \renewcommand*\MC@alignsec{\raggedright \let\\=\notoccr}}
+\newcommand*{\notoccr}{%
+  \if@typesetprotect 
+    \expandafter \@centercr 
+  \else 
+    \expandafter \protect \expandafter \@gobblestaropt
+  \fi}
+\newcommand*{\@gobblestaropt}{%
+  \@ifstar\@testgobbleopt\@testgobbleopt}
+\newcommand*{\@testgobbleopt}[1][]{}
+%% TODO: this construct in LaTeX3 or elsewhere?
+\ProcessOptions
+
+%% Extra macros for layout changes:
+
+%% Replace `\newcommand' by `\renewcommand' in `\MC@choosefont':
+\let\MC@ch@@sef@nt\MC@choosefont
+\renewcommand*{\MC@choosefont}[1]{%
+  \expandafter\expandafter\expandafter
+  \@ifundefined \expandafter\expandafter\expandafter
+    {\expandafter\@gobble\string#1}%
+    {\PackageError{MORPLAY}%
+                 {\string#1 undefined}%
+                 {Mistyped for redefining?\MessageBreak 
+                  Or use \string\MC@ch@@sef@nt for a new font name.}}%
+    {}%
+  \let#1\relax
+  \MC@ch@@sef@nt#1}%
+
+%% Make up for size differences to \normalsize:
+\newcommand*{\MC@addsecspace}[1]{%
+  \if@nobreak
+    \@tempdima\lastskip
+    \vskip-\@tempdima
+    \advance\@tempdima#1\relax
+    \vskip\@tempdima
+  \fi}
+
+%% Section Heading Changes:
+
+% \MC@choosefont{\pxfont@HONETITLE  }{13.5}{15.5}{b}{n}
+% \MC@choosefont{\pxfont@HTWOTITLE  }{11}  {12.5}{b}{n}
+% \MC@choosefont{\pxfont@HTHREETITLE}{10}  {11.5}{b}{n}
+
+\renewcommand\section{%
+  \@startsection{section}{1}{\z@}%
+                {-15pt \@plus -2pt \@minus -.2pt}%
+                {\medskipamount}%
+                {\MC@alignsec\titlecolor\pxfont@HONETITLE}}
+  %% <- \MC@alignsec 2010/01/17 ->
+\renewcommand\subsection{%
+%   \MC@addsecspace{1.5pt}%% UL 2009/11/17
+  \MC@addsecspace{1pt}%% UL 2009/11/17, baseline skip only
+  \@startsection{subsection}{2}{\z@}%
+                {-15pt \@plus -2pt \@minus -.2pt}%% v1.12
+%                 {\smallskipamount}%% v1.12
+%                 {.6667\medskipamount}%% UL 2009/11/17
+                {.55\medskipamount}%% UL 2009/11/17
+                {\MC@alignsec\titlecolor\pxfont@HTWOTITLE}}%
+\renewcommand\subsubsection{%
+%   \MC@addsecspace{1.5pt}%% UL 2009/11/17
+  \MC@addsecspace{2pt}%% UL 2009/11/17, baseline skip only
+  \@startsection{subsubsection}{3}{\z@}% %% `%' 2009/09/26
+                {-15pt \@plus -2pt \@minus -.2pt}%% v1.12
+%                 {\smallskipamount}%% v1.12
+%                 {.3333\medskipamount}%% UL 2009/11/17
+                {.1\medskipamount}%% UL 2009/11/17
+                {\MC@alignsec\titlecolor\pxfont@HTHREETITLE}}%
+\renewcommand\paragraph{%
+  \@startsection{paragraph}{4}{\z@}%
+%                 {-19pt \@plus -2pt \@minus -.2pt}{-1em}%% v1.12
+                {-8pt \@plus -2pt \@minus -.2pt}{-1em}%% UL 2009/11/17 
+%                 {-\medskipamount}{-1em}%% UL 2009/11/17 
+                {\titlecolor\textbfit}}%% v1.12
+%                 {\itshape}}%% morgan.sty v1.11 and earlier
+\renewcommand\subparagraph{%
+  \@startsection{subparagraph}{5}%
+                {\parindent}%% v1.12
+%                 {3pc}%% UL 2009/11/17, section title indent
+%                 {-19pt \@plus -2pt \@minus -.2pt}{-1em}%% v1.12
+                {-8pt \@plus -2pt \@minus -.2pt}{-1em}%% UL 2009/11/17
+%                 {-\medskipamount}{-1em}%% UL 2009/11/17 
+%                 {\titlecolor}}%% v1.12 (UL, not DRT)
+                {\titlecolor\textit}}%% UL 2009/11/17
+%                 {}}%% v1.11 and earlier
+

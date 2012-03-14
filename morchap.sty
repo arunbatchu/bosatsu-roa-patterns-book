@@ -1,0 +1,326 @@
+\ProvidesPackage{morchap}[2010/03/21 v0.31
+                 new chapter macros with morgan.sty (UL)]
+%% === Auxiliary === %%%%%%%%%%%%%%%%%%%%%%%%
+%% % Cf. `\boxmaxdepth', we will need depth of `\@tempboxa 
+%% % another time: [\MCstopchapterdepth]
+%% % moreover `\boxmaxdepth' moves reference point, not wanted. 
+%% % |\MCshadedblock{<width>}{<surround>}{<move>}{<text>}|
+%% % sorry: 
+%% |\MCshadedblock{<width>}{<move>}{<text>}|
+\newcommand{\MCshadedblock}[3]{%
+% \newcommand{\MCshadedblock}[4]{%
+%% \LaTeX's `\@tempboxa' stores text content:
+  \setbox\@tempboxa\vbox{%
+    \color@begingroup
+    \hsize#1\relax #3\@@par
+    \color@endgroup}%
+%    \showboxbreadth=10 \showboxdepth=1 \showbox\@tempboxa
+% %% Surrounding space for shading: 
+%     \MC@advance@boxdim{\ht\@tempboxa}{#2}%
+%     \MC@advance@boxdim{\dp\@tempboxa}{#2}%
+%     \leavevmode \@@par \noindent
+  \@@par
+%% Blue background: 
+  \vbox to\z@{%
+    \rlap{\hskip#2\color{bluetwenty}%
+          \vrule height\ht\@tempboxa width 41pc depth\dp\@tempboxa}%
+%% \ULguess{... that depth is zero at present.}{2009/10/13}
+    \vss}%
+  \nointerlineskip
+%% \ULguess{... otherwise &\lineskip appears (&\showlists).}{2009/10/13} 
+%% \unskip---\ignorespaces 
+%% Print text content: 
+  \box\@tempboxa
+}
+% %% `\advance\dp'... does not work, so:
+% \newcommand*{\MC@advance@boxdim}[2]{%
+%     \dimen@#1\advance\dimen@#2\relax #1\dimen@ }
+%% ... 13 code lines.
+%%
+%% === Keywords === %%%%%%%%%%%%%%%%%%%%%%%%%
+%    \ifnewkeywords
+%% |\Ahead[<title-color>]{<title>}{<text>}|
+\renewcommand{\Ahead}[3][blue]{%
+%   \vskip\medskipamount %% 2008 position, but looks wrong
+    \MCshadedblock{30pc}%%%{\medskipamount}%
+                   {\ifodd\c@page .5pc\else -6.5pc\fi}%
+%% \ULguess{... .5pc (`6pt' formerly) !?? TODO}{2009/10/13}
+                   {%
+%       \vskip\smallskipamount %% emulating 2008, bad
+      \medskip
+%% \ULguess{... effective?? TODO }{2009/10/12}
+      \noindent\textcolor{#1}{\pxfont@HONETITLE #2}%
+%% \ULguess{... text horizontally different?? }{2009/10/12}
+      \vskip\smallskipamount
+      \noindent #3%
+      \vskip\medskipamount %% cf. above!?
+                   }%
+}
+%% ... 12 code lines. `\Ahead' and `\Bhead' had 75. 
+%%
+%    \fi
+%    \ifnewchapter
+%% === Starting Chapters === %%%%%%%%%%%%%%%%
+\renewcommand\chapter{%\if@openright\cleardoublepage\else\clearpage\fi
+                    %\thispagestyle{plain}%
+                    %\global\@topnum\z@
+%% ... delayed to \cs{MC@chapterpage} for `runinchapter'.
+                    \@afterindentfalse
+                    \secdef\@chapter\@schapter}
+\newcommand*{\MC@chapterpage}{%
+  \clearpage \thispagestyle{plain}\global \@topnum\z@}
+\def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
+                       %\if@mainmatter
+                         \MC@chapterpage 
+%% ... moved up here 2010/03/21, bookmarks lead to wrong pages. 
+                         \refstepcounter{chapter}%
+                         \typeout{\@chapapp\space\thechapter.}%
+                         \addcontentsline{toc}{chapter}%
+                         {\protect\numberline{\thechapter}%
+%                                              {#1}}%% 2009/10/14
+%% \ULguess{... 'morgan.sty''s use of &\numberline 
+%%              requires another pair of braces.}{2009/10/14} 
+%% \ULguess{Tondo requests sending long title to TOC 
+%%          (TODO: &\section):}{2009/10/31}
+                                             {#2}}%% 2009/10/14
+                       %\else
+                       %  \addcontentsline{toc}{chapter}{#1}%
+                       %\fi
+                    \else
+                      \addcontentsline{toc}{chapter}{#1}%
+                    \fi
+                    \chaptermark{#1}%
+                    \addtocontents{lof}{\protect\addvspace{10\p@}}%
+                    \addtocontents{lot}{\protect\addvspace{10\p@}}%
+                    \if@twocolumn
+                      \@topnewpage[\@makechapterhead{#2}]%
+                    \else
+                      \@makechapterhead{#2}%
+                      \@afterheading
+                    \fi}
+\def\@makechapterhead{%
+%% Chapter author preparation: 
+    \global \let \MC@chapau@skipamount \MC@chapau@corr@skipamount 
+%% A centered line \lq CHAPTER <number>\rq\ or 
+%% \lq APPENDIX <number>\rq:
+    \plaincenterline{\pxfont@CNAME\color{blue}%
+        \ifappend %% APPENDIX
+            A\kern0.25em P\kern0.25em P\kern0.25em E\kern0.25em
+            N\kern0.25em D\kern0.25em I\kern0.25em X%
+        \else     %% CHAPTER
+            C\kern0.25em H\kern0.25em A\kern0.25em P\kern0.25em
+            T\kern0.25em E\kern0.25em R%
+%% \ULguess{... space after `R' may be wanted for letter-spacing; 
+%%          ask!}{2009/10/15}
+        \fi
+%% \ULguess{Your graphical designer may tell you that the 
+%%   spacing of `CHAPTER' is very bad.}{2009/06/27}
+%% \ULguess{Seems to be less bad with `caslon'.}{2009/10/08}
+        \quad \pxfont@CNUM \thechapter}%
+%% \ULguess{... removed superfluous group inside 2009/10/12}{2009/10/12} 
+    \nointerlineskip 
+    \vskip13.5pt
+%     \vskip\MC@chaptersep
+%     \vskip.375in\vskip-\topsep
+%% \ULguess{... otherwise &\normalskip &\baselineskip appears 
+%%              (&\showlists).}{2009/10/13}
+    \@makeschapterhead %% or \@schapter
+}
+%% ... 14 code lines, were 35 before. 
+\def\@makeschapterhead#1{%% or \@schapter, then \let\relax 2009/10/25
+%     \MCshadedblock\textwidth\topsep\z@skip{%
+    \MCshadedblock\textwidth\z@skip{%
+        \vskip\topsep
+        \centering \pxfont@CTITLE \color{blue}#1%
+        \@@par \xdef\MC@prevdepth{\the\prevdepth}%
+        \vskip\topsep}%
+    \vskip-\MC@prevdepth
+    \vskip\MC@chapter@skipamount
+}
+%% ... 6 replacing 21 before. 3 more lines for new specification.
+%%
+\def\@schapter{%% TODO!? 2009/10/15
+  \ifruninchapter \else \MC@chapterpage \fi
+  \@makeschapterhead
+}
+%% TODO 4 code lines ...
+%% 
+%% |\chaptermark| coming from 'book.cls'' \cs{ps@headings}
+%% sends \qtd{CHAPTER} and the chapter number to the page head. 
+%% This is not wanted by Mike Morgan. The next redefinition 
+%% later should be in 'morgan.sty''s \cs{ps@headings}: %% 2009/12/10
+%% Actually Mike Morgan reads from the design spec (2009/12/11) that 
+%% the left running head is the book title 
+%% and the right one is the chapter title, no numbers. 
+%% We follow this when `\RHTITLE' has been specified, 
+%% otherwise we follow 'book.cls'. 
+%% -- \cs{ps@headings} enforces `\MakeTextUppercase', 
+%% so it is not needed in the `\mark...' commands. %% 2009/12/12
+\renewcommand*{\chaptermark}[1]{%
+  \@ifundefined{RHTITLE}%
+               {\markboth{\thechapter. \ #1}%
+                         {}}%
+               {\markboth{\RHTITLE}%
+                         {#1}}%
+}
+\renewcommand*{\sectionmark}[1]{%
+  \@ifundefined{RHTITLE}%
+               {\markright{%
+                 \ifnum\c@secnumdepth>\z@
+                   \thesection. \ %
+                 \fi#1}}%
+               {}%
+}
+%%
+%% === Spacing Test (Package Options) ===
+%% options new 2009/12/07
+\DeclareOption{draft}{%
+  \def\testblblskip#1{%
+    \ifx\protect\@typeset@protect
+      \smash{\textcolor{red}{\vrule height#1}}\fi
+  }%
+}
+\DeclareOption{final}{\let\testblblskip\@gobble}
+\ExecuteOptions{final}
+\ProcessOptions
+%%
+%% === Chapter Head Skips === %%%%%%%%%%%%%%%%
+%% \ULguess{Replace Jonathan Pennell's `in' 
+%%   by 72\,pt (``small inch"). 0.325\,in\,=3/8\,in 
+%%   turn into 27\,pt etc.!?}{2009/10/31}
+%% Jonathan Pennell's baseline skip specification:
+\dimen@=.625in 
+%% Correct for `\baselineskip' from `\normalsize':
+\advance\dimen@-13.5pt 
+\@ifdefinable\MC@chapau@text@skipamount{%
+    \edef\MC@chapau@text@skipamount{\the\dimen@}}
+%% Space surrounding chapter title:
+\advance\dimen@-\topsep 
+% \advance\dimen@-\parskip %% \skip@ !?
+\@ifdefinable\MC@chapter@skipamount{%
+    \edef\MC@chapter@skipamount{\the\dimen@}}
+%% Changing baseline-to-baseline skip with chapter authors: 
+%% Jonathan Pennell's specification is .375". 
+%% Baselineskip with authors is 20\,pt instead of 
+%% `\normalsize''s 13.5\,pt.
+\dimen@=.25in \advance\dimen@6.5pt
+\@ifdefinable\MC@chapau@corr@skipamount{%
+    \edef\MC@chapau@corr@skipamount{-\the\dimen@}}
+%% TODO problem with index: Donald Arseneau, latex/3126,
+%% but we use 'multicol'.
+%%
+%% === Chapter Authors === %%%%%%%%%%%%%%%%%%
+%% Fonts for chapter authors and their affiliations:
+\MC@choosefont{\pxfont@CAUTHOR    }{16}{20}{b}{n}
+\MC@choosefont{\pxfont@CTOC       }{11}{15}{b}{n}
+\MC@choosefont{\pxfont@CAUTHORTOC }{11}{15}{b}{it}
+\newcommand*{\chapterauthor}{%
+         \vskip \MC@chapau@skipamount
+         \gdef  \MC@chapau@skipamount{-\MC@chapau@text@skipamount}% 
+ \global \let   \par \MC@chapau@enter
+         \gdef  \MC@chapterauthor
+}
+\newcommand*{\chapteraffiliation}[1]{%
+    \g@addto@macro \MC@chapterauthor {%
+        \mcChapAffSep \MC@chapaff@font\hspace*{30pt} #1}%
+    \MC@chapau@enter
+}
+%% |\mcChapAffSep| separates affiliaton from author names 
+%% on the starting page of the chapter. 
+\newcommand*{\mcChapAffSep}{, }%% v0.2				
+%% You can `\renewcommand*{\mcChapAffSep}{\\}'.
+%%
+%% \ULguess{... optional arguments for shortened versions!? 
+%%              My 2009/10/08, 7:29 PM.}{2009/10/28}
+\newcommand*{\MC@chapaff@font}{%
+    \fontseries{m}\fontshape{it}\selectfont}
+    %% TODO just \it!? 2009/11/09
+\newcommand*{\MC@chapau@enter}{%
+    \global \let\par\@@par
+    \begingroup 
+        \centering \pxfont@CAUTHOR 
+        \textcolor{blue}{\MC@chapterauthor}%
+        \par
+%       \def\mcChapAffSep{, }%%       v0.2
+		\def\mcChapAffSep{\newline}%				DRT 06/20/10
+        \def\MC@chapaff@font{\protect\mdseries}%
+        \def\\{\protect\mcOneSpace}%% v0.2
+        \addtocontents{toc}{%
+            \protect\chapauline{\MC@chapterauthor}}% 
+    \endgroup
+    \nobreak         %% 2009/12/07
+    \vskip\MC@chapau@text@skipamount
+    \@afterheading   %% 2009/12/07
+}
+%% TODO 2010/01/14: 1. \space for .aux should suffice
+%%                  2. account for * and [...]
+%%                  (cf. MORPLAY.STY)
+\newcommand*{\mcOneSpace}{%% v0.2
+  \ifhmode \ifdim\lastskip>\z@\else\ \fi \ignorespaces \fi}
+\newcommand*{\chapauline}[1]{%
+%  \showboxbreadth=40 \showboxdepth=0 \showlists
+%% 2009/10/15:
+    \vskip      -\MC@chapau@toc@skipamount
+    \global \let \MC@chapau@toc@skipamount \smallskipamount
+    \noindent \hskip26pt%
+    \ \ %% make up for missing `%'s in `\l@...' (\showlists)
+%% \ULguess{... to be adapted to correction!}{2009/10/28}
+    {\pxfont@CAUTHORTOC 
+     \textcolor{blue}{#1}\testblblskip{\baselineskip}\@@par}%
+    \smallskip
+}
+%% To make up for bold, author skip (2009/10/15):
+\renewcommand\l@chapter[2]{{%
+  \ifnum \c@tocdepth>-1%
+    \vskip12pt plus 6pt minus 3pt %% KEEP STRETCH/SHRINK
+    %%%\nointerlineskip \medskip %% 2009/10/23
+    \noindent\hskip-28pt%% again 2009/10/27
+    \def\numberline##1##2{%
+%% Chapter number:
+      \hbox to \maxchapterwidth{\vtop{\vskip-12pt%
+      %% <- 2009/12/12 for empty ##1 ->
+      %%%\hbox{\vtop{\hsize=\maxchapterwidth
+      %%%                                \vskip-12pt%
+                                      \color{blue} %% SPACE 
+                                      \bfseries %% 2009/10/13
+                                      \Large
+                                      %%%\smash{##1}}}
+                                      ##1}} %% SPACE
+%      \setbox\@tempboxa
+      \hbox{\vtop{\hsize=30.4pc%
+                  \vskip-12pt%
+                  \color{blue}%
+                  \raggedright 
+%                   ##2\vphantom{ty}\dotfill #2\hskip-18pt\null}}}
+%% \ULguess{... another blank space ...}{2009/10/22}
+%% ... make up for chapter authors (2009/10/14): 
+          \pxfont@CTOC
+          ##2\mdseries
+          \vphantom{ty}%% EXPORT \prevdepth instead!?
+          \dotfill #2\hskip-18pt\null}}% 
+          %%%\dotfill #2}}%
+%      \showboxdepth=1\showboxbreadth=20
+%      \showbox\@tempboxa
+%      \showthe\wd\@tempboxa
+%      \box\@tempboxa
+          } %% SPACE
+%% \ULguess{... another blank space ... &\hskip`-18pt' appears in 
+%%   \cs{l@section} again and seems to make up for some other earlier 
+%%   misconception ...}{2009/10/22}
+    %\noindent
+    #1\par
+    %\vskip12pt plus 6pt minus 3pt %% KEEP STRETCH/SHRINK
+    \smallskip
+    \gdef\MC@chapau@toc@skipamount{%% remove smallskip + ...:
+         7pt\@plus\p@\@minus\p@}%% 2009/10/15
+  \fi}}
+%% \ULguess{TODO dots end wrong!? 2009/10/14 Maybe bad impression 
+%%   is due to overall non-exact horizontal aligning.}{2009/10/28}
+%%
+%    \fi
+%%
+\endinput 
+
+VERSIONS:
+v0.3   2009/12/12   sent to Tondo
+v0.31  2010/01/14   TODOs

@@ -1,0 +1,32 @@
+
+% please see read.me for details
+
+\documentclass{book}
+
+\usepackage{morgan}
+\usepackage{morchap}
+\usepackage{morbeta}
+\usepackage[raggedsec]{morplay}
+\usepackage{natbib}             % use natbib for Author-Year bibliography
+\usepackage[draft]{ttdefs}
+
+\setcounter{secnumdepth}{2}
+
+%\makeindex                     % produce the index in book.idx
+
+\begin{document}
+
+ \frontmatter
+      \input{fm}                % sample front matter
+
+\mainmatter                     % sample chapters
+    \input{ch01}
+    \input{ch02}
+    \input{ch03}
+    \input{biblio}              % bibliography
+
+ \backmatter                    % back matter
+    \input{bio}                 % author(s)'s short bio(s)
+%   \input{book.ind}            % if the author has Index
+
+\end{document}

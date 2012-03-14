@@ -1,0 +1,37 @@
+%% This is file `cmupdate.fd',
+%%
+%%
+\ProvidesFile{cmupdate.fd}
+        [2001/12/01 v0.1 CM font size redefinitions]
+%
+% cmss redefs
+\DeclareFontShape{OT1}{cmss}{bx}{n}
+     {%
+      <5><6><7><8><9>cmssbx10%
+      <10><10.95><12><14.4><17.28><19><20.74><24><24.88><36>cmssbx10%
+      }{}
+% cmr redefs
+\DeclareFontShape{OT1}{cmr}{m}{n}%
+     {<5><6><7><8><9><10><12>gen*cmr%
+      <9.5><10.95>cmr10%
+      <14.4>cmr12%
+      <17.28><20.74><24.88>cmr17}{}
+\DeclareFontShape{OT1}{cmr}{m}{it}%
+     {%
+      <5><6><7>cmti7%
+      <8>cmti8%
+      <9>cmti9%
+      <10><10.95>cmti10%
+      <12><13><14.4><17.28><20.74><24.88>cmti12%
+      }{}
+\DeclareFontShape{OT1}{cmr}{bx}{n}
+   {%
+      <5><6><7><8><9>gen*cmbx%
+      <9.5><10><10.95>cmbx10%
+      <12><14.4><17.28><20.74><24.88>cmbx12%
+      }{}
+\DeclareFontShape{OT1}{cmr}{bx}{sc}
+      {<->sub*cmr/m/sc}{}
+\endinput
+%%
+%% End of file `cmupdate.fd'.

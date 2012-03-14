@@ -1,0 +1,166 @@
+%
+\ifx\xmlfile\@undefined%
+\else%
+  \input isotech.tex
+\fi%
+%
+\def\storetitle#1{}
+\def\getlabel#1{\gdef\@getlabel{#1}}
+%
+\def\getjournalid#1{}
+\def\getissn#1{}
+\def\getpublisher#1{}
+\def\getarticleid#1{}
+\def\getalttitle#1{\gdef\@getalttitle{#1}}\getalttitle{}
+\def\getarticletitle#1{\gdef\@getarticletitle{#1}}
+\def\getcontrib#1{\author{#1}}
+\def\getaff#1{\affiliation{#1}}
+\def\getpubdate#1{}
+\def\getvolume#1{}
+\def\getfpage#1{}
+\def\getlpage#1{}
+\def\getcopyrightstatement#1{}
+\def\getcopyrightyear#1{}
+%
+\def\getcaption#1{\protected@xdef\@CAPTION{#1}}
+
+%
+%%%%%%%% BIBLIOGRAPHY
+%
+\def\activatereftags{%
+   \let\getaccessdate\getbib@accessdate%
+   \let\getannotation\getbib@annotation%
+   \let\getarticletitle\getbib@articletitle%
+   \let\getcollab\getbib@collab%
+   \let\getcomment\getbib@comment%
+   \let\getconfdate\getbib@confdate%
+   \let\getconfloc\getbib@confloc%
+   \let\getconfname\getbib@confname%
+   \let\getday\getbib@day%
+   \let\getedition\getbib@edition%
+   \let\getemail\getbib@email%
+   \let\getelocationid\getbib@elocationid%
+   \let\getetal\getbib@etal%
+   \let\getfpage\getbib@fpage%
+   \let\getgov\getbib@gov%
+   \let\getissn\getbib@issn%
+   \let\getisbn\getbib@isbn%
+   \let\getissue\getbib@issue%
+   \let\getlpage\getbib@lpage%
+   \let\getmonth\getbib@month%
+   \let\getname\getbib@name%
+   \let\getpatent\getbib@patent%
+   \let\getpersongroup\getbib@persongroup%
+   \let\getpubid\getbib@pubid%
+   \let\getpublisherloc\getbib@publisherloc%
+   \let\getpublishername\getbib@publishername%
+   \let\getseason\getbib@season%
+   \let\getseries\getbib@series%
+   \let\getsource\getbib@source%
+   \let\getstd\getbib@std%
+   \let\getsupplement\getbib@supplement%
+   \let\gettimestamp\getbib@timestamp%
+   \let\gettranssource\getbib@transsource%
+   \let\gettranstitle\getbib@transtitle%
+   \let\getvolume\getbib@volume%
+   \let\getyear\getbib@year%
+}
+%
+\def\getbib@accessdate#1{#1}
+\def\getbib@annotation#1{#1}
+\def\getbib@articletitle#1{#1}
+\def\getbib@collab#1{#1}
+\def\getbib@comment#1{#1}
+\def\getbib@confdate#1{#1}
+\def\getbib@confloc#1{#1}
+\def\getbib@confname#1{#1}
+\def\getbib@day#1{#1}
+\def\getbib@edition#1{#1}
+\def\getbib@email#1{#1}
+\def\getbib@elocationid#1{#1}
+\def\getbib@etal#1{#1}
+\def\getbib@fpage#1{#1}
+\def\getbib@gov#1{#1}
+\def\getbib@issn#1{#1}
+\def\getbib@isbn#1{#1}
+\def\getbib@issue#1{#1}
+\def\getbib@lpage#1{#1}
+\def\getbib@month#1{#1}
+\def\getbib@name#1{#1}
+\def\getbib@patent#1{#1}
+\def\getbib@persongroup#1{#1}
+\def\getbib@pubid#1{#1}
+\def\getbib@publisherloc#1{#1}
+\def\getbib@publishername#1{#1}
+\def\getbib@season#1{#1}
+\def\getbib@series#1{#1}
+\def\getbib@source#1{#1}
+\def\getbib@std#1{#1}
+\def\getbib@supplement#1{#1}
+\def\getbib@timestamp#1{#1}
+\def\getbib@transsource#1{#1}
+\def\getbib@transtitle#1{#1}
+\def\getbib@volume#1{#1}
+\def\getbib@year#1{#1}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Tables %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\newcount\colcount%
+\def\getCOLNUM#1#2{%
+\global\colcount\expandafter\getnumber#2%
+\global\advance\colcount-\expandafter\getnumber#1%
+\global\advance\colcount1%
+}%
+%
+\def\getnumber col#1{#1}%
+%
+\gdef\base{10pt}%%for table body leading
+\gdef\colbase{10pt}%%for table column head leading
+\newif\ifhangtab\global\hangtabfalse
+%
+\newcount\tfootcount
+\global\tfootcount0
+%
+\def\tablefootnote#1#2{%\expandafter\gdef\csname affiliation\the\affiliationcount\endcsname{#1}%
+        \global\advance\tfootcount1\expandafter\gdef\csname tablefootnote\the\tfootcount\endcsname{#2}}
+%
+\def\showtfoot{\let\getlabel\gettfootlabel\global\tempcount0
+%               \vskip-2.5pt%
+%               \ifdim\tablewidth>\textheight%
+%                 \vskip-7.5pt\centerline{\hskip11pt\vrule width\tablewidth height.5pt\hskip-11pt}\vskip-4pt
+%               \else%
+%                 \vskip-7.5pt\centerline{\vrule width\tablewidth height.5pt}\vskip-4pt
+%               \fi%
+                 \@whilenum\tempcount<\tfootcount
+   						        \do{%
+%                 				\color{\Bcolorthree\hskip0pt\csname tablefootnote\the\tempcount\endcsname\endgraf}
+                 				\hskip0pt\csname tablefootnote\the\tempcount\endcsname\endgraf%
+                     \global\advance\tempcount1}%
+%               and\ \csname author\the\tempcount\endcsname%
+            %
+  }
+%
+\newif\ifframed\framedfalse
+\newif\ifnotablenum
+%
+\def\tablebodystartleftskip#1{\gdef\@tablebodystartleftskip{#1}}\tablebodystartleftskip{9pt}
+\def\tablebodystartrightskip#1{\gdef\@tablebodystartrightskip{#1}}\tablebodystartrightskip{9pt}
+%
+%
+%\def\interfootnote{\vphantom{PQpqfg}\\[-\baselineskip]}
+%
+\def\gettfootlabel#1{#1}
+%
+%\def\morgan@footnote#1#2{\protected@write\@mainfnnote{}%
+%{<fn-link id="#1">#2<?TeX \vspace*{-\baselineskip}?></fn-link>}%
+%}
+%
+\def\XREF#1{#1}
+%
+\def\DispQuotetitle#1{#1}
+%
+\newenvironment{DispQuote}{\par\let\storetitle\DispQuotetitle}{\par}
+%

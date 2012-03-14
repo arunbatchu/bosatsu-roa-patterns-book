@@ -1,0 +1,21 @@
+% FD file for MorganClaypool-specific fonts
+% Version 1 Paul Mailhot PreTeX, Inc. 902-454-8111
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareFontFamily{OT1}{acaslon}{}%
+\DeclareFontShape{OT1}{acaslon}{m}{n}{%   Adobe Caslon Roman
+                                   <-> awrg
+}{}
+\DeclareFontShape{OT1}{acaslon}{b}{it}{%  Adobe Caslon Italic
+                                   <-> awi
+}{}
+\DeclareFontShape{OT1}{acaslon}{b}{n}{%   Adobe Caslon SemiBold
+                                   <-> awsb
+}{}
+\DeclareFontShape{OT1}{acaslon}{m}{it}{%  Adobe Caslon SemiBold Italic
+                                   <-> awsbi
+}{}
+\DeclareFontShape{OT1}{acaslon}{m}{sc}{%  Adobe Caslon SemiBold Italic
+                                   <-> awsc
+}{}
+
+\DeclareFontFamily{OT1}{trajan}{}%

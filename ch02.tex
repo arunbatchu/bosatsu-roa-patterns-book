@@ -1,0 +1,100 @@
+
+\chapter{Jordan Canonical Form}
+\index{jordan canonical form@Jordan Canonical Form}%
+
+\section{The Diagonalizable Case}
+
+Although, for simplicity, most of our examples
+will be over the real numbers
+(and indeed over the rational numbers), we will consider that
+\textit{all of our vectors and matrices
+are defined over the complex numbers} $\mathbb{C}$.
+It is only with this assumption that the
+theory of Jordan Canonical Form (JCF) works
+\index{jcf@JCF}%
+completely.
+%See Remark~1.9 for the key reason why.\\
+See Remark~\ref{rem1.4} for the key reason why.\\
+
+\begin{definition}
+\label{def1.1}
+If \(v \neq 0\) is a vector such that, for some
+$\lambda$,
+\[
+A v = \lambda v~,
+\]
+then $v$ is an \textit{eigenvector} of $A$ associated
+\index{eigenvector}%
+to the \textit{eigenvalue} $\lambda$.
+\index{eigenvalue}%
+\end{definition}
+
+\begin{example}
+\label{exa1.2}
+Let $A$ be the matrix $A =$
+Then, as you can check, if $v_1 =$ 
+then $A v_1 = 3 v_1$, so $v_1$ is an eigenvector of $A$ with associated
+eigenvalue $3$, and if $v_2 =$ 
+then $A v_2 = -2 v_2$, so $v_2$ is
+an eigenvector of $A$ with associated eigenvalue $-2$.
+\end{example}
+
+
+We note that the definition of an eigenvalue/eigenvector can be expressed
+in an alternate form.
+Here $I$ denotes the identity matrix:
+
+For an eigenvalue $\lambda$ of $A$, we let $E_{\lambda}$ denote
+the \textit{eigenspace} of $\lambda$,
+\index{eigenspace}%
+\[
+E_{\lambda}=\{v \ |\ Av=\lambda v\}=\{v \ |\ (A-\lambda I)v=0\} =
+\]
+
+(The kernel  is also known as the nullspace
+
+We also note that this alternate formulation helps us find eigenvalues and
+eigenvectors.
+For if $(A - \lambda I) v = 0$ for a nonzero vector $v$,
+the matrix $A - \lambda I$ must be singular,
+and hence its determinant must be
+$0$.
+This leads us to the following definition.
+
+\begin{definition}
+\label{def1.3}
+The \textit{characteristic polynomial}
+\index{characteristic polynomial}%
+of a matrix $A$ is the polynomial 
+\end{definition}
+
+\begin{remark}
+\label{rem1.4}
+This is the customary definition of the characteristic
+\index{characteristic polynomial}%
+polynomial.
+But note that, if $A$ is an $n$-by-$n$ matrix, then the matrix
+$\lambda I - A$ is obtained from the matrix $A - \lambda I$ by multiplying
+each of its $n$ rows by $-1$, and hence
+In practice, it is most convenient
+to work with $A -\lambda I$ in finding eigenvectors---this minimizes
+arithmetic---and when we come to find
+chains of generalized eigenvectors in
+Section~1.2,
+it is (almost) essential to use $A -\lambda I$, as using
+$\lambda I - A$ would introduce lots of spurious minus signs.
+\end{remark}
+
+\begin{example}
+\label{exa1.5}
+Returning to the matrix $A =$
+of Example~\ref{exa1.2}, we compute that 
+$\lambda^2 - \lambda - 6 = (\lambda - 3)(\lambda + 2)$, so $A$ has eigenvalues
+$3$ and $-2$.
+Computation then shows that the eigenspace
+$E_{3} = \ $
+and that the eigenspace
+$E_{-2} = \ $
+\end{example}
+
+Bye.

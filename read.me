@@ -1,0 +1,110 @@
+
+
+    Please see
+
+        book.tex        - it is a sample driver program
+                        - use this file to set up list of files for your book
+                        - we will produce the front matter for your book
+
+                        - use
+                            \usepackage{morgan}
+
+                            morgan.sty is the M&C Publishers macros
+
+                        - use
+                            \usepackage{morchap}
+                            \usepackage{morbeta}
+                            \usepackage[raggedsec]{morplay}
+
+                            to change a few options in morgan.sty
+
+                        - use
+                            \usepackage{natbib}
+
+                            natbib.sty supports the Author-Year style
+                            for the bibliography (more later)
+
+                        - use
+                            \usepackage[draft]{ttdefs}
+
+                            the style file ttdefs.sty brings the necessary
+                            style files and defines a number of macros
+                            we use in the production of your books
+
+
+        ch01.tex        - use one file per chapter, please
+                        - look for \begin{figure} to find
+
+                \begin{figure}[hbt]
+                    \includegraphics[width=3.3in]{line-spaces.eps}
+                %   \figboxes
+                \caption{Communication system block diagram.
+                \label{ch01.fig11.1.1} }
+                \end{figure}
+
+                            Notice that we prefer to use eps figures because
+                            the results are very good.
+                            If you do not have a figure yet, use \figboxes
+
+                            The [draft] option in the ttdefs.sty style file
+                            uses the \else part and produces a box instead of
+                            a figure (from \figboxes)
+
+                        - look for \begin{table} to find out how to create a
+                          table WITH a \caption and use colors for the rows
+                          instead of using \hline that Adobe Reader does not
+                          display well
+
+                          Please see book.pdf, page 10, 24, and 26.
+
+                        - look for \begin{tabular} to find out how to create a
+                          table WITHOUT a \caption and use colors for the rows
+                          instead of using \hline that Adobe Reader does not
+                          display well
+
+                          Please see book.pdf, page 10.
+
+                        - if you wish to have an index in your books, you
+                          will need to insert entries of the form
+
+                                \index{term to appear in index}%
+
+                          and we will produce an index using your entries
+                          of the type above.
+                          The \index{...}% should appear by itself in a
+                          line and it should terminate with a % to avoid
+                          generating extra spaces in your book.
+
+                        - please see book.pdf, page 20, to see how the
+                          macros will automatically break long section
+                          and subsection titles
+
+
+        ch03.tex        - please read the contents on Chapter 3 (one page)
+                          in book.pdf to see how one uses the "Author-Year"
+                          type of bibliography; for that to work one needs
+                          to say
+
+                                \usepackage{natbib}
+
+                          as it appears in book.tex
+
+
+        biblio.tex      - see how to create your bibliography using the
+                          "Author-Year" style;
+
+                        - if you use .bib, please send us the .bbl file that
+                          BibTeX generated for you
+
+
+        book.pdf        - this file contains the results of running book.tex
+                          and generating a pdf file.
+
+    If you come across problems or have specific questions, please send
+    us a short .tex file indicating the problem and we'll try go get you
+    an answer. We are trying to help you create a beatutiful book.
+
+    Contact us at
+
+                drtondo@t3works.com
+
