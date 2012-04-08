@@ -1,69 +1,66 @@
+\chapter{Procedural Patterns}
+\label{ch03}
 
-\chapter{Citations with Author-Year}
-\label{chap:cit:A-Y}
+\section{Introduction}
+\label{ch03.sec.1}
 
-An alternative to numerical \LaTeX\ citations makes reference to published
-works by citing the author's name and year of publication. The entries in 
-the bibliographic listing are not numbered. The citation itself may be 
-either parenthetical like \citep{carroll98} or textual as shown by
-\citet{carroll98}.
+\newpage
+\section{Gateway}
+\label{ch03.sec.2}
 
-The \verb+natbib+ package by Patrick W. Daly is the most universal package
-for Author-Year citation and it is compatible with \verb+\bibitem+ syntaxes
-and with the \verb+.bst+ files of author-year packages such as
-\verb+apalike+, \verb+chicago+, and \verb+harvard+.
+\subsection{Intent}
+\label{ch03.sec.2.intent}
+The Gateway pattern is notionally a combination of the Information Resource, Named Query and Tranformation patterns. The distinction is that it is generally intended for a specific client use case. Rather than a server resource being established for general use, the Gateway pattern establishes a proxy for a client interested in an orchestration, data aggregation, content extraction or other processing of one or more backend sources.
 
-If you create a bibliography by hand, please see the file \verb+biblio.tex+
-in the \verb+latex+ directory of \verb+bib-AY.zip+.
-The \verb+biblio.tex+ files shows the syntax that \verb+natbib.sty+ 
-requires and notice how we use
-that package in~\verb+book.tex+ and in~\verb+ch01.tex+. 
-You can find the details about \verb+natbib+ and Author-Year bibliographies
-in~\citet[pages~218-221]{KD:2004}.
+\subsection{Motivation}
+\label{ch03.sec.2.motivation}
 
-Note that we have bibliographic references like \verb+carroll98+,
-\verb+KD:2004+, and \verb+weber-97+. Pick a style that works for you
-and stay with it, then it will be easier for yourself and others to 
-maintain and modify your bibliography and citations.
+\subsection{Consequences}
+\label{ch03.sec.2.consequences}
 
-If you use \verb+.bib+ files then you should know about \verb+BibTeX+,
-\verb+.bst+ files, and you should know how to create the \verb+.bbl+
-files as well.
-(If you use \verb+.bib+ files but you do not know the rest, you should
-consult a local expert before continuing with \verb+.bib+ or create
-your bibliography by hand.)
-If you know the steps we mentioned above and you wish to create an 
-Author-Year bibliography and citations, then you are in luck: 
-there are three \verb+.bst+ that are provided with \verb+natbib+.
-They are: \verb+plainnat+, \verb+unsrtnat+, and \verb+abbrvnat+.
+ql.io
 
-Once you create your \verb+.bbl+ file(s), please submit them along with
-your manuscript files, style files, and (preferably) \verb+.eps+ figures with 
-\verb+BoundingBox+es to \textit{Morgan and Claypool Publishers.}
+\newpage
+\section{Curated URI}
+\label{ch03.sec.3}
 
-You can get a free copy of the \verb+natbib+ package  from CTAN at
-\begin{center}
-\verb+http://www.ctan.org/tex-archive/macros/latex/contrib/natbib/+
-\end{center}
-and download the file \verb+natbib.zip+.
+\subsection{Intent}
+\label{ch03.sec.3.intent}
+The Curated URI pattern establishes a stewardship commitment to the clients of a named resource. Rather than relying on the good graces of a resource provider to keep an identifier stable over time, a new identifier is chosen to be redirected toward another endpoint. The target resource can be moved as long as the redirection is maintained without having a negative impact on clients.
 
-Here are some more samples using the citations that appear in the file
-\verb+biblio.tex+ that we built by hand.
+\subsection{Motivation}
+\label{ch03.sec.3.motivation}
 
-The next paragraph uses text citations using \verb+\citet+ (cite as text):\\
-\noindent
-There are several textbooks that give a general 
-introduction to dependency grammar but
-most of them in other languages than English, for example,
-\citet{tarvainen82} and~\citet{weber-97}.
+\subsection{Consequences}
+\label{ch03.sec.3.consequences}
 
-The last paragraph uses text citations with parentheses
-using \verb+\citetp+:\\
-\noindent
-Tesni{\`e}re's seminal work was published
-posthumously as~\citep{tesniere59}. 
-Other influential theories in the dependency
-grammar tradition include Functional Generative
-Description~\citep{SHP:1986}.
+PURL
 
-Please see the bibliography on the next page and the file \verb+biblio.tex+.
+\newpage
+\section{Heatmap}
+\label{ch03.sec.4}
+
+\subsection{Intent}
+\label{ch03.sec.4.intent}
+The Heatmap pattern grows out of the dual nature of an addressable resource identifier. As a name, it affords disambiguation in a global information space at a very fine granularity. As a handle, it represents the interface to the resource itself. Metadata captured about how this resource is used, accessed, failure rates, etc. represent crucial business intelligence. This information can be used to identify business opportunities, operational planning, dynamic routing and more.
+
+\subsection{Motivation}
+\label{ch03.sec.4.motivation}
+
+\subsection{Consequences}
+\label{ch03.sec.4.consequences}
+
+\newpage
+\section{Workflow}
+\label{ch03.sec.5}
+
+\subsection{Intent}
+\label{ch03.sec.5.intent}
+The Workflow pattern encodes a series of steps into a resource abstraction where the client learns what options are available through the resource representation. The server is in charge of enabling and disabling state transitions based on the context of the requests, the client choices and other inputs.
+
+\subsection{Motivation}
+\label{ch03.sec.5.motivation}
+
+\subsection{Consequences}
+\label{ch03.sec.5.consequences}
+
